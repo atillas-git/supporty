@@ -32,29 +32,31 @@ const SignUp = () => {
           </Typography>
           <Stack direction={"row"} gap={1}>
             <Typography level='body-sm' fontWeight={"bold"}>
-              New to the Supporty?
+              Already have an account?
             </Typography>
             <Typography 
               level='body-sm' 
               sx={signupStyles.signUpLink} 
               fontWeight={"bold"}
             >
-              <Link href={"/auth/signup"}>
-                Sign up
+              <Link href={"/auth/signin"}>
+                Sign in
               </Link>
             </Typography>
           </Stack>
-          <Button
-            sx={signupStyles.googleSignIn} 
-            startDecorator ={<FcGoogle style = {signupStyles.googleIcon}/>}
-          >
-              Sign in with Google
-          </Button>
         </Stack>
         <Divider/>
         <Stack width={"100%"} direction={"column"} gap={1}>
           <FormControl required>
+            <FormLabel>Name</FormLabel>
+            <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
+          </FormControl>
+          <FormControl required>
             <FormLabel>Email</FormLabel>
+            <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
+          </FormControl>
+          <FormControl required>
+            <FormLabel>Phone Number</FormLabel>
             <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
           </FormControl>
           <FormControl required>
@@ -63,10 +65,10 @@ const SignUp = () => {
           </FormControl>
         </Stack>
         <Stack direction={"row"} alignSelf={"center"} justifyContent={"space-between"} width={"100%"}>
-          <Checkbox label = "Remember Me" />
+          <Checkbox label = "Show Password" />
           <Typography level='body-md' sx={signupStyles.forgotPassword}>Forgot Password ?</Typography>
         </Stack>
-        <Button onClick={handleSignIn} loading = {loading}>Sign in</Button>
+        <Button onClick={handleSignIn} loading = {loading}>Sign Up</Button>
       </Box>
     </Box>
   )
