@@ -3,20 +3,36 @@ import { Box, Button, Checkbox, Divider, FormControl, FormLabel, Input, Stack, T
 import React ,{useState} from 'react'
 import signupStyles from './signup.styles'
 import Link from 'next/link'
-import {FcGoogle} from 'react-icons/fc';
+import { useRouter } from 'next/navigation'
 const SignUp = () => {
-
-    const [email,setEmail] = useState("")
+    const [email,setEmail] = useState("");
+    const [username,setUsername] = useState("");
+    const [name,setName] = useState("");
     const [password,setPassword] = useState("");
     const [loading,setLoading] = useState(false);
-    
-    const handleSignIn = ()=>{
-        if(!email || !password){
+
+    const router = useRouter()
+
+    const handleSignUp = async ()=>{
+        if(!email || !password || !username || !name){
         }
         setLoading(true)
-        setTimeout(()=>{
+        const res = await fetch("/api/signup",{
+          method:"POST",
+          body:JSON.stringify({
+            name:name,
+            username:username,
+            email:email,
+            password:password
+          })
+        })
+        if(res.ok){
+          router.push("/auth/signin")
           setLoading(false)
-        },5000)
+        }
+        else{
+          setLoading(false)
+        }
     }
 
     return (
@@ -49,26 +65,23 @@ const SignUp = () => {
         <Stack width={"100%"} direction={"column"} gap={1}>
           <FormControl required>
             <FormLabel>Name</FormLabel>
-            <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
+            <Input type='text' onChange={(e)=>setName(e.target.value)}/>
           </FormControl>
           <FormControl required>
             <FormLabel>Email</FormLabel>
             <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
           </FormControl>
           <FormControl required>
-            <FormLabel>Phone Number</FormLabel>
-            <Input type='email' onChange={(e)=>setEmail(e.target.value)}/>
+            <FormLabel>Username</FormLabel>
+            <Input type='text' onChange={(e)=>setUsername(e.target.value)}/>
           </FormControl>
           <FormControl required>
             <FormLabel>Password</FormLabel>
             <Input type='password' onChange={(e)=>setPassword(e.target.value)}/>
           </FormControl>
         </Stack>
-        <Stack direction={"row"} alignSelf={"center"} justifyContent={"space-between"} width={"100%"}>
-          <Checkbox label = "Show Password" />
-          <Typography level='body-md' sx={signupStyles.forgotPassword}>Forgot Password ?</Typography>
-        </Stack>
-        <Button onClick={handleSignIn} loading = {loading}>Sign Up</Button>
+        <Divider/>
+        <Button onClick={handleSignUp} loading = {loading}>Sign Up</Button>
       </Box>
     </Box>
   )

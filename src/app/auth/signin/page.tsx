@@ -4,11 +4,10 @@ import React ,{useState} from 'react'
 import signinStyles from './signin.styles'
 import Link from 'next/link'
 import {FcGoogle} from 'react-icons/fc';
-
+import { signIn } from 'next-auth/react'
 interface State extends SnackbarOrigin {
   open: boolean;
 }
-
 const SignIn = () => {
   const [state, setState] = useState<State>({
     open: false,
@@ -18,27 +17,25 @@ const SignIn = () => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("");
   const [loading,setLoading] = useState(false);
-
   const { vertical, horizontal, open } = state;
-
   const handleSnackbarOpen = (newState: SnackbarOrigin) => () => {
     setState({ ...newState, open: true });
   };
-
   const handleSnackbarClose = () => {
     setState({ ...state, open: false });
   };
-
-  const handleSignIn = ()=>{
+  const handleSignIn = async ()=>{
     if(!email || !password){
       return handleSnackbarOpen({vertical:"top",horizontal:"center"})()
     }
     setLoading(true)
-    setTimeout(()=>{
-      setLoading(false)
-    },5000)
+    await signIn("credentials",{
+      email:email,
+      password:password,
+      callbackUrl:"/"
+    })
+    setLoading(false)
   }
-
   return (
     <Box sx={signinStyles.main}>
       <Box sx={signinStyles.authContainer}>
