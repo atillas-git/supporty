@@ -1,9 +1,9 @@
-import { Button } from '@mui/joy'
+import { Button } from "@mui/joy";
 
 export default function Home() {
   return (
-    <div >
+    <div>
       <Button>Hello</Button>
     </div>
-  )
+  );
 }

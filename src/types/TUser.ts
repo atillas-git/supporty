@@ -1,7 +1,7 @@
 export type TUser = {
-    name:string,
-    username:string,
-    email:string,
-    password:string,
-    isAdmin?:boolean
-}
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  isAdmin?: boolean;
+};
