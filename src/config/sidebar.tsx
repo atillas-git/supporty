@@ -1,9 +1,11 @@
 import { IoTicket } from "react-icons/io5";
+import { FiUsers } from "react-icons/fi";
 import {
   MdOutlineAdd,
   MdOutlineViewInAr,
   MdList,
   MdDashboard,
+  MdEdit,
 } from "react-icons/md";
 interface SidebarItem {
   key: string;
@@ -44,6 +46,31 @@ const sidebar: SidebarItem[] = [
         label: "List",
         icon: <MdList />,
         to: "/dashboard/tickets/list",
+      },
+    ],
+  },
+  {
+    key: "sidebar_users",
+    label: "Users",
+    icon: <FiUsers />,
+    type: "accordion",
+    children: [
+      {
+        key: "sidebar_users_add",
+        label: "Add",
+        icon: <MdOutlineAdd />,
+        to: "/dashboard/users/add",
+      },
+      {
+        key: "sidebar_users_edit",
+        label: "Edit",
+        icon: <MdEdit />,
+      },
+      {
+        key: "sidebar_users_list",
+        label: "List",
+        icon: <MdList />,
+        to: "/dashboard/users/list",
       },
     ],
   },

@@ -21,6 +21,7 @@ import { MdOutlineSearch } from "react-icons/md";
 import SidebarFooter from "./SidebarFooter";
 import { GoDotFill } from "react-icons/go";
 import sidebar from "@/config/sidebar";
+import Link from "next/link";
 const Sidebar = () => {
   return (
     <Stack direction={"column"} sx={sidebarstyles.main}>
@@ -56,20 +57,25 @@ const Sidebar = () => {
                       {sidebarItem.children &&
                         sidebarItem.children.map((sidebarChildren) => (
                           <ListItem key={sidebarChildren.key}>
-                            <ListItemButton>
-                              <Stack
-                                direction={"row"}
-                                width={"100%"}
-                                alignItems={"center"}
-                                ml={"10%"}
-                                gap={2}
-                              >
-                                <GoDotFill />
-                                <Typography level="body-md">
-                                  {sidebarChildren.label}
-                                </Typography>
-                              </Stack>
-                            </ListItemButton>
+                            <Link
+                              href={sidebarChildren.to ?? ""}
+                              style={{ width: "100%" }}
+                            >
+                              <ListItemButton>
+                                <Stack
+                                  direction={"row"}
+                                  width={"100%"}
+                                  alignItems={"center"}
+                                  ml={"10%"}
+                                  gap={2}
+                                >
+                                  <GoDotFill />
+                                  <Typography level="body-md">
+                                    {sidebarChildren.label}
+                                  </Typography>
+                                </Stack>
+                              </ListItemButton>
+                            </Link>
                           </ListItem>
                         ))}
                     </List>
@@ -79,10 +85,16 @@ const Sidebar = () => {
             );
           } else {
             return (
-              <Box key={sidebarItem.key} sx={sidebarstyles.sidebarItem}>
-                {sidebarItem.icon}
-                <Box>{sidebarItem.label}</Box>
-              </Box>
+              <Link
+                key={sidebarItem.key}
+                href={sidebarItem.to ?? ""}
+                style={{ width: "100%" }}
+              >
+                <Box key={sidebarItem.key} sx={sidebarstyles.sidebarItem}>
+                  {sidebarItem.icon}
+                  <Box>{sidebarItem.label}</Box>
+                </Box>
+              </Link>
             );
           }
         })}
